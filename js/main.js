@@ -100,10 +100,14 @@ elList.addEventListener("click", function (evt) {
     const foundIndex = todos.findIndex((el) => el.id == getId);
     // console.log(foundIndex);
     let prompted = prompt(
-      "You're about to change your tasks ?",
+      "You're about to change your tasks?",
       todos[foundIndex].text
     );
     todos[foundIndex].text = prompted;
+    if (prompted) {
+    } else {
+      return;
+    }
     renderTodo(todos, elList);
   }
 
@@ -121,6 +125,10 @@ elList.addEventListener("click", function (evt) {
       todos[foundIndex].text
     );
     todos[foundIndex].text = prompted;
+    if (prompted) {
+    } else {
+      return;
+    }
     renderTodo(todos, elList);
   }
 });
