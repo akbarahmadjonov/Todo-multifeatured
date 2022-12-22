@@ -1,6 +1,13 @@
 const elForm = document.querySelector(".js-form");
 const elInput = document.querySelector(".js-input");
 const elList = document.querySelector(".js-list");
+const elSpanError = document.querySelector(".js-error");
+const elAllBtn = document.querySelector(".js-all-btn");
+const elAllSpan = document.querySelector(".js-all-span");
+const elFinishedBtn = document.querySelector(".js-finished-btn");
+const elFinishedSpan = document.querySelector(".js-finished-span");
+const elPendingBtn = document.querySelector(".js-pending-btn");
+const elPendingSpan = document.querySelector(".js-pending-span");
 
 let todos = [];
 
@@ -25,14 +32,15 @@ function renderTodo(array, node) {
     const newEditButton = document.createElement("button");
     newEditButton.setAttribute(
       "class",
-      "btn btn-success ms-auto me-2 js-edit-btn"
+      "btn btn-success ms-auto me-2 js-edit-btn fa-regular p-3 fs-5 fa-pen-to-square"
     );
-    newEditButton.textContent = "EDIT";
     newEditButton.dataset.todoId = el.id;
 
     const newDeleteButton = document.createElement("button");
-    newDeleteButton.setAttribute("class", "btn btn-danger js-delete-btn");
-    newDeleteButton.textContent = "DELETE";
+    newDeleteButton.setAttribute(
+      "class",
+      "btn btn-danger js-delete-btn p-3 fs-5 fa-regular fa-trash-can"
+    );
     newDeleteButton.dataset.todoId = el.id;
 
     newSpan.textContent = el.text;
@@ -46,6 +54,8 @@ function renderTodo(array, node) {
       newSpan.style.textDecoration = "line-through";
     }
     node.appendChild(newLi);
+
+    elAllSpan.textContent = todos.length;
   });
 }
 
@@ -56,7 +66,11 @@ elForm.addEventListener("submit", function (evt) {
     // alert("Please enter at least one word :(");
     elInput.classList.toggle("error");
     return false;
+  } else if (elInput.value.length <= 2) {
+    elSpanError.classList.remove("d-none");
+    return false;
   } else {
+    elSpanError.classList.add("d-none");
     elInput.classList.remove("error");
   }
 
@@ -115,6 +129,13 @@ elList.addEventListener("click", function (evt) {
     const getId = evt.target.dataset.todoId;
     const foundIndex = todos.findIndex((el) => el.id == getId);
     todos[foundIndex].isCompleted = !todos[foundIndex].isCompleted;
+
+    let finished = todos.filter((item) => item.isCompleted == true);
+
+    console.log(finished.length);
+    elFinishedSpan.textContent = finished.length;
+    elPendingSpan.textContent =
+      elAllSpan.textContent - elFinishedSpan.textContent;
     renderTodo(todos, elList);
   }
   if (evt.target.matches(".js-span")) {
