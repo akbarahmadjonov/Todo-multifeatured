@@ -77,14 +77,14 @@ elForm.addEventListener("submit", function (evt) {
   elInput.value = "";
 
   //*----------------  Localstorage
-  localStorage.setItem("user", JSON.stringify(todos));
-  localStorage.getItem("user");
-  console.log(todos);
+//   localStorage.setItem("user", JSON.stringify(todos));
+//   localStorage.getItem("user");
+//   console.log(todos);
 });
 
 //*---------------- Localstorage
-todos = JSON.parse(localStorage.getItem("user"));
-renderTodo(todos, elList);
+// todos = JSON.parse(localStorage.getItem("user"));
+// renderTodo(todos, elList);
 //*---------------- Localstorage
 
 elList.addEventListener("click", function (evt) {
