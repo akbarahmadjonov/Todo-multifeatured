@@ -13,15 +13,18 @@
 <body>
 
     <div class="container">
-        <form class="text-center mt-5 w-50 mx-auto rounded js-form">
-            <h1>Todo App</h1>
-            <div class="input-group">
-                <input class="form-control js-input" type="text" placeholder="Enter any task" autofocus>
-                <button class="btn btn-primary">Add a task</button>
-            </div>
-        </form>
-        <ul class="mt-5 list-group w-50 mx-auto js-list"></ul>
+        <div class="row flex-column">
+            <form class="col-12 col-lg-6 text-center mt-5 mx-auto rounded js-form">
+                <h1>Todo App</h1>
+                <div class="input-group">
+                    <input class="form-control js-input" type="text" placeholder="Enter any task" autofocus>
+                    <button class="btn btn-primary">Add a task</button>
+                </div>
+                <ul class="col-12 col-lg-12  mt-5 list-group mx-auto js-list"></ul>
+            </form>
+        </div>
     </div>
+    <span class="mt-5 d-block text-center">Follow me on: <a href="https://github.com/akbarahmadjonov/">GitHub</a></span>
 
     <script src="./js/main.js"></script>
 </body>
