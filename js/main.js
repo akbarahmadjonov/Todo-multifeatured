@@ -8,6 +8,27 @@ const elFinishedBtn = document.querySelector(".js-finished-btn");
 const elFinishedSpan = document.querySelector(".js-finished-span");
 const elPendingBtn = document.querySelector(".js-pending-btn");
 const elPendingSpan = document.querySelector(".js-pending-span");
+const elModeBtn = document.querySelector(".mode");
+
+// Dark mode
+let theme = false;
+
+elModeBtn.addEventListener("click", function () {
+  theme = !theme;
+  const bg = theme ? "dark" : "light";
+  window.localStorage.setItem("theme", bg);
+  changeTheme();
+});
+
+function changeTheme() {
+  if (window.localStorage.getItem("theme") == "dark") {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
+}
+changeTheme();
+// Dark mode
 
 let todos = [];
 
