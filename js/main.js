@@ -9,6 +9,7 @@ const elFinishedSpan = document.querySelector(".js-finished-span");
 const elPendingBtn = document.querySelector(".js-pending-btn");
 const elPendingSpan = document.querySelector(".js-pending-span");
 const elModeBtn = document.querySelector(".mode");
+const elDeleteTasks = document.querySelector(".delete-tasks");
 
 // Dark mode
 let theme = false;
@@ -20,6 +21,8 @@ elModeBtn.addEventListener("click", function () {
   changeTheme();
 });
 
+let todosStorage = JSON.parse(window.localStorage.getItem("todo"));
+
 function changeTheme() {
   if (window.localStorage.getItem("theme") == "dark") {
     document.body.classList.add("dark");
@@ -30,7 +33,8 @@ function changeTheme() {
 changeTheme();
 // Dark mode
 
-let todos = [];
+let todos = todosStorage || [];
+console.log(todos);
 
 function renderTodo(array, node) {
   node.innerHTML = "";
@@ -80,6 +84,22 @@ function renderTodo(array, node) {
   });
 }
 
+renderTodo(todos, elList);
+
+elAllBtn.addEventListener("click", () => {
+  renderTodo(todos, elList);
+});
+
+elFinishedBtn.addEventListener("click", () => {
+  let filtered = todos.filter((el) => el.isCompleted == true);
+  renderTodo(filtered, elList);
+});
+
+elPendingBtn.addEventListener("click", () => {
+  let filtered = todos.filter((el) => el.isCompleted == true);
+  renderTodo(filtered, elList);
+});
+
 elForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
 
@@ -111,15 +131,8 @@ elForm.addEventListener("submit", function (evt) {
   renderTodo(todos, elList);
   elInput.value = "";
 
-  //*----------------  Localstorage
-  // localStorage.setItem("user", JSON.stringify(todos));
-  // localStorage.getItem("user");
+  window.localStorage.setItem("todo", JSON.stringify(todos));
 });
-
-//*---------------- Localstorage
-// todos = JSON.parse(localStorage.getItem("user"));
-// renderTodo(todos, elList);
-//*---------------- Localstorage
 
 elList.addEventListener("click", function (evt) {
   if (evt.target.matches(".js-delete-btn")) {
@@ -127,6 +140,7 @@ elList.addEventListener("click", function (evt) {
     const foundIndex = todos.findIndex((el) => el.id == getId);
     // console.log(foundIndex);
     todos.splice(foundIndex, 1);
+    localStorage.removeItem("todo");
     renderTodo(todos, elList);
   }
 
@@ -173,4 +187,9 @@ elList.addEventListener("click", function (evt) {
     }
     renderTodo(todos, elList);
   }
+});
+
+elDeleteTasks.addEventListener("click", () => {
+  localStorage.removeItem("todo");
+  window.location.reload();
 });
